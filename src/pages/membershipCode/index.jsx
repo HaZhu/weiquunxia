@@ -34,9 +34,9 @@ const MembershipCode = () => {
   return (
     <View className='member_ship_code_container'>
       <BackIcon></BackIcon>
-      <View className={`code_box ${memberSign === 2 && 'green_shadow'}`}>
-        {memberSign === 2 ? <View className='membership_flur'></View> : <View className='membership_gray'></View>}
-        <View className={`cover_view ${memberSign === 2 && 'green_cover_view'}`}>
+      <View className={`code_box green_shadow`}>
+        <View className='membership_flur'></View>
+        <View className={`cover_view green_cover_view`}>
           <View className='lxb_name'>
             <View className='user_name'>群名称：赚钱群</View>
             <View className='user_info'>
@@ -60,6 +60,16 @@ const MembershipCode = () => {
           <View className='code_text'></View>
           <View className='user_register_time'></View>
         </View>
+      </View>
+      <View className='fixed_wrap'>
+         <View className='icon_wrap'> 
+            <View className='iconfont iconcuowu-stroke'></View>
+            <View className='pb'>屏蔽</View>
+         </View>
+         <View className='icon_wrap'> 
+            <View className='iconfont icona-icon48xiaoxi'></View>
+            <View className='pb'>投诉</View>
+         </View>
       </View>
     </View>
   );
