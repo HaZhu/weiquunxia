@@ -7,6 +7,7 @@ export default {
     'pages/newPhone/index', //更换手机页面
     'pages/feedback/index', //反馈与建议
     'pages/agreement/index', //隐私条款
+    'pages/membershipCode/index', //会员码
     'pages/quickLogin/index', //快捷登录
     'pages/codePage/index', //二维码中转页面
   ],
