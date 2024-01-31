@@ -1,36 +1,29 @@
 import { View, Text, Image,  Canvas } from '@tarojs/components';
 import { useState, useRef, useEffect } from 'react';
 import Taro, { useDidHide, useRouter, useDidShow, usePullDownRefresh } from '@tarojs/taro';
-
+import {
+  groupDetail
+} from '@/api/group'
 import { QRCode } from 'taro-code';
-import dayjs from 'dayjs';
 import BackIcon from '@/components/BackIcon';
 import {  getPx } from '@/utils/index';
 
 import './index.less';
 
 const MembershipCode = () => {
-  const [memberSign, setMemberSign] = useState(1);
-  const [userInfo, setUserInfo] = useState({});
-  const [memberInfo, setMemberInfo] = useState(() => {
-    return {
-      availableIntegral: 0,
-      deductibleAmount: 0,
-      memberCode: ''
-    };
-  });
-  const handleGetCode = async () => {
-    // const res = await userMemberCode();
-    // if (res.code === 200) {
-    //   setMemberInfo(res.data);
-    // }
+  const params = useRouter().params;
+  const [groupInfo, setGroupInfo] = useState({});
+  const handleGetDetail = async () => {
+    const res = await groupDetail({
+      id: params.id
+    });
+    if (res.code === 200) {
+      setGroupInfo(res.data);
+    }
   };
   useDidShow(() => {
-    handleGetCode();
+    handleGetDetail();
   })
-  useEffect(() => {
-   
-  }, []);
   return (
     <View className='member_ship_code_container'>
       <BackIcon></BackIcon>
@@ -38,17 +31,20 @@ const MembershipCode = () => {
         <View className='membership_flur'></View>
         <View className={`cover_view green_cover_view`}>
           <View className='lxb_name'>
-            <View className='user_name'>群名称：赚钱群</View>
+            <View className='user_name'>群名称：{groupInfo.groupName}</View>
             <View className='user_info'>
               <Text>创建者：傲雪</Text>
             </View>
           </View>
           <View className='lxb_num'>群ID：987890</View>
-          <View className='lxb_money'>微群人数：189</View>
-          <View className='lxb_money'>创建时间：2022-09-08</View>
+          <View className='lxb_money'>微群人数：{groupInfo.peopleNum}</View>
+          <View className='lxb_money'>创建时间：{}</View>
           {/* <View className="code_img"> */}
           {true ? (
-            <QRCode className='code_img' text="fwefwef12233" size={getPx(400)} scale={4} errorCorrectLevel='M' typeNumber={5} />
+            <View className='webp_wrap'>
+                  <Image className='codeImg' src={groupInfo.qrCodeUrl}></Image>
+             </View>
+            // <QRCode className='code_img' text="fwefwef12233" size={getPx(400)} scale={4} errorCorrectLevel='M' typeNumber={5} />
           ) : (
             <View className='webp_wrap'>
               <Image

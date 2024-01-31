@@ -83,7 +83,7 @@ const OpenInvoice = () => {
     let query = { ...formData };
     const res = await groupCreate(query)
     if (res.code === 0) {
-      showToast('提交成功')
+      showToast('提交成功，等待管理员审核')
       setFormData({
         qrCodeUrl: 'https://temmoku2020.oss-cn-hangzhou.aliyuncs.com/7cdb32c0392374798b75a758ad2386370d4562e8.jpg',
         headImagePic: '',

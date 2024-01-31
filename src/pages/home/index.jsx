@@ -27,10 +27,10 @@ const Home = () => {
 
   const getGroupList = async (isScroll = false) => {
     const res = await groupListByPage({
-      offset: 1,
+      offset: 0,
       pageSize: 20,
       groupName: groupName,
-      tagId: currentId
+      // tagId: currentId
     });
     if (isScroll) {
       const _list = benefitsList.concat(res.data.list);
@@ -125,7 +125,7 @@ const Home = () => {
 
       <View className={`${styles['list_wrap']}`}>
         {
-          [1,2,3].map(item => {
+          benefitsList.map(item => {
             return  <View className={`${styles['list']}`}>
             <View className={`${styles['list_left']}`}>
               <Image className={`${styles['list_left_img']}`} src='https://temmoku2020.oss-cn-hangzhou.aliyuncs.com/7cdb32c0392374798b75a758ad2386370d4562e8.jpg'></Image>
@@ -133,15 +133,18 @@ const Home = () => {
             <View className={`${styles['list_center']}`}>
                <View className={`${styles['list_center_top']}`}>
                   <View className={`iconfont iconweixin-fill ${styles['iconfont1']}`}></View>
-                  <View className={`text_cut_1 ${styles['title']}`}>火球NIIT福建欧文</View>
+                  <View className={`text_cut_1 ${styles['title']}`}>{item.groupName}</View>
                </View>
                <View className={`${styles['list_center_bottom']}`}>
                   <View className={`iconfont icona-icon48huiyuanzhuanshu ${styles['iconfont2']}`}></View>
-                  <View className={` text_cut_1 ${styles['num']}`}>火球NIIT福建欧文</View>
+                  <View className={` text_cut_1 ${styles['num']}`}>{item.peopleNum}人</View>
                </View>
             </View>
-            <View className={`${styles['list_right']}`}>
-              {/* <AtTag type='primary' circle>加</AtTag>  */}
+            <View className={`${styles['list_right']}`} onClick={() => {
+              Taro.navigateTo({
+                url: `/pages/membershipCode/index?id=${item.id}`
+              })
+            }}>
               <AtTag type='primary' active circle>加群</AtTag>
             </View>
           </View>
