@@ -40,11 +40,12 @@ const MembershipCode = () => {
           <View className='lxb_name'>
             <View className='user_name'>群名称：赚钱群</View>
             <View className='user_info'>
-              <Text>群人数：123人</Text>
+              <Text>创建者：傲雪</Text>
             </View>
           </View>
-          <View className='lxb_num'>创建时间：2022</View>
-          <View className='lxb_money'>创建地点：杭州</View>
+          <View className='lxb_num'>群ID：987890</View>
+          <View className='lxb_money'>微群人数：189</View>
+          <View className='lxb_money'>创建时间：2022-09-08</View>
           {/* <View className="code_img"> */}
           {true ? (
             <QRCode className='code_img' text="fwefwef12233" size={getPx(400)} scale={4} errorCorrectLevel='M' typeNumber={5} />
@@ -61,7 +62,7 @@ const MembershipCode = () => {
           <View className='user_register_time'></View>
         </View>
       </View>
-      <View className='fixed_wrap'>
+      {/* <View className='fixed_wrap'>
          <View className='icon_wrap'> 
             <View className='iconfont iconcuowu-stroke'></View>
             <View className='pb'>屏蔽</View>
@@ -70,7 +71,7 @@ const MembershipCode = () => {
             <View className='iconfont icona-icon48xiaoxi'></View>
             <View className='pb'>投诉</View>
          </View>
-      </View>
+      </View> */}
     </View>
   );
 };

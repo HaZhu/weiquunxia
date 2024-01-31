@@ -3,11 +3,11 @@ import { setLoginReturnUrl } from '@/utils';
 import qs from 'qs';
 import { getGlobalData,setGlobalData } from '@/utils/global_data'
 
-let baseUrl = 'https://pro.api.ooelicloud.com';
+let baseUrl = 'http://182.254.145.172:8080/';
 // let baseUrl = 'http://121.40.138.127:30003';
-if (process.env.ENV === 'test' || process.env.ENV === 'development') {
-  baseUrl = 'http://121.40.138.127:30003';
-}
+// if (process.env.ENV === 'test' || process.env.ENV === 'development') {
+//   baseUrl = 'http://121.40.138.127:30003';
+// }
 const noLoginPage = ['/pages/home/index', '/pages/manyou/home/index'];
 let isRefreshing = true;
 let pendings = [];

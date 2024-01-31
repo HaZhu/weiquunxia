@@ -10,6 +10,7 @@ export default {
     'pages/membershipCode/index', //会员码
     'pages/quickLogin/index', //快捷登录
     'pages/codePage/index', //二维码中转页面
+    'pages/createGroup/index', //二维码中转页面
   ],
   subpackages: [
     {

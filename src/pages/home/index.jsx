@@ -1,6 +1,11 @@
+import Taro, { useReachBottom } from '@tarojs/taro';
 import React, { useState, useEffect } from 'react';
 import { View, Swiper, SwiperItem, Image} from '@tarojs/components';
 import { AtSearchBar, AtTabs, AtTag } from 'taro-ui'
+import ActiveNavigation from '@/components/ActiveNavigation';
+import {
+  groupListByPage, tagList
+} from '@/api/group'
 import styles from './home.module.less';
 
 const Home = () => {
@@ -9,23 +14,74 @@ const Home = () => {
   },{
     image: 'https://temmoku2020.oss-cn-hangzhou.aliyuncs.com/78985e7e2b61334cef8b35764c04ff05651aa757.jpg'
   }]);
-  const [searchValue,setSearchValue] = useState("")
-  const [tabList,setTTabList] = useState([
-    { title: '标签页1' },
-    { title: '标签页2' },
-    { title: '标签页3' },
-    { title: '标签页4' },
-    { title: '标签页5' },
-    { title: '标签页6' }
-  ])
-  const [current,setCurrent] = useState(0)
+  const [tabList,setTabList] = useState([])
+  
+  const [hasMore, setHasMore] = useState(true);
+  const [groupName, setGroupName] = useState("");
+  const [benefitsList, setBenefitsList] = useState([]);
+  const [pageActive, setPageActive] = useState({
+    pageNum: 0
+  });
+  const [current,setCurrent] = useState(null)
+  const [currentId,setCurrentId] = useState(null)
 
+  const getGroupList = async (isScroll = false) => {
+    const res = await groupListByPage({
+      offset: 1,
+      pageSize: 20,
+      groupName: groupName,
+      tagId: currentId
+    });
+    if (isScroll) {
+      const _list = benefitsList.concat(res.data.list);
+      setBenefitsList(_list);
+      setPageActive({
+        pageNum: pageActive.pageNum + 1
+      });
+    } else {
+      setBenefitsList(res.data.list);
+      setPageActive({
+        pageNum: 0
+      });
+    }
+    if(res.data.list.length < 20){
+      setHasMore(false)
+    }
+  };
+  const getTagList = async () => {
+      const res = await tagList();
+      if(res.data.length){
+        let _taglist =  res.data.map(item => {
+          return {
+            title: item.tagName
+          }
+        })
+        setTabList(_taglist)
+        setCurrent(0)
+        setCurrentId(res.data[0].id)
+      }
+  }
   const onChange =  (value) => {
-      console.log(value)
+    setGroupName(value)
   }
   const onChangeTabs =  (value) => {
     setCurrent(value)
-}
+    setCurrentId(tabList[value].id)
+  }
+  
+  useReachBottom(() => {
+    if (hasMore) {
+      getGroupList(true);
+    }
+  });
+  useEffect(() => {
+    if(currentId){
+      getGroupList()
+    }
+  }, [currentId]);
+  useEffect(() => {
+    getTagList()
+  }, []);
   return (
     <View className={`${styles['home_page']}`}>
       <Swiper
@@ -54,8 +110,11 @@ const Home = () => {
       <AtSearchBar
         showActionButton
         placeholder='输入关键词搜索群'
-        value={searchValue}
+        value={groupName}
         onChange={onChange}
+        onActionClick={() => {
+          getGroupList()
+        }}
       />
       <AtTabs
         current={current}
@@ -89,6 +148,8 @@ const Home = () => {
           })
         }
       </View>
+      <ActiveNavigation></ActiveNavigation>
+
     </View>
   );
 };
