@@ -7,6 +7,7 @@ import {
   groupListByPage, tagList
 } from '@/api/group'
 import styles from './home.module.less';
+let baseUrl = 'https://www.music999.cn';
 
 const Home = () => {
   const [banners, setBanner] = useState([{
@@ -30,7 +31,6 @@ const Home = () => {
       offset: 0,
       pageSize: 20,
       groupName: groupName,
-      // tagId: currentId
     });
     if (isScroll) {
       const _list = benefitsList.concat(res.data.list);
@@ -68,6 +68,31 @@ const Home = () => {
     setCurrent(value)
     setCurrentId(tabList[value].id)
   }
+  const getUser =  () => {
+    Taro.login({
+      success: function (r) {
+        if (r.code) {
+          Taro.request({
+            url: baseUrl + `/wx/user/login?code=${r.code}`,
+            header: {
+              'Content-Type': 'application/json',
+              locale: 'zh_CN'
+            },
+            mode: 'cors',
+            method: 'GET'
+          }).then((result) => {
+            if(result.data.code == 0){
+               Taro.setStorageSync('token',result.data.data.token)
+               Taro.setStorageSync('userNick',result.data.data.userNick)
+               Taro.setStorageSync('userId',result.data.data.id)
+            }
+          });
+        } else {
+          console.log('登录失败！');
+        }
+      }
+    });
+  }
   
   useReachBottom(() => {
     if (hasMore) {
@@ -81,6 +106,7 @@ const Home = () => {
   }, [currentId]);
   useEffect(() => {
     getTagList()
+    getUser()
   }, []);
   return (
     <View className={`${styles['home_page']}`}>

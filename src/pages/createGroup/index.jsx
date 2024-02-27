@@ -24,7 +24,7 @@ const OpenInvoice = () => {
   ];
   const [formData, setFormData] = useState(() => {
     return {
-      qrCodeUrl: 'https://temmoku2020.oss-cn-hangzhou.aliyuncs.com/7cdb32c0392374798b75a758ad2386370d4562e8.jpg',
+      qrCodeUrl: '',
       headImagePic: '',
       tagId: '',
       tagName: '',
@@ -63,13 +63,18 @@ const OpenInvoice = () => {
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有，在H5浏览器端支持使用 `user` 和 `environment`分别指定为前后摄像头
       success: async function (res) {
+        console.log(res)
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         Taro.showLoading({
           title: '上传中...'
         });
         const r = await handleUploadFile(res.tempFilePaths[0]);
+        if(r.qrCodeOrigin != 1 || r.qrCodeOrigin != 2){
+          showToast('请上传微信群二维码或者企业群二维码')
+          Taro.hideLoading();
+        }
         let _formData = {...formData};
-        _formData[type] = r;
+        _formData[type] = r.qrCodeUrl;
         setFormData(_formData)
         Taro.hideLoading();
       }
@@ -85,7 +90,7 @@ const OpenInvoice = () => {
     if (res.code === 0) {
       showToast('提交成功，等待管理员审核')
       setFormData({
-        qrCodeUrl: 'https://temmoku2020.oss-cn-hangzhou.aliyuncs.com/7cdb32c0392374798b75a758ad2386370d4562e8.jpg',
+        qrCodeUrl: '',
         headImagePic: '',
         tagId: '',
         tagName: '',

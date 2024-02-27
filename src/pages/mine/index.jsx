@@ -2,8 +2,7 @@ import { Component } from 'react';
 import { View, Text, Image } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 import Arrow from '@/assets/arrowRight.png';
-import { getUserAuthInfo,getServiceTel } from '@/api';
-import { setLoginReturnUrl,  setRequestRecord,  ShareIcon } from '@/utils/index';
+import { setLoginReturnUrl,  ShareIcon } from '@/utils/index';
 
 import ShareLogoIcon from '@/assets/logo.png';
 import './index.less';
@@ -13,12 +12,6 @@ const MENUS = [
     path: '/pages/feedback/index',
     icon: 'icona-icon48xie-stroke1',
     text: '反馈与建议'
-  },
-  {
-    path: '/pages/chooseType/index',
-    icon: 'icona-icon128yishu',
-    text: '赠票管理',
-    id: 'ticket'
   },
   {
     path: '/pages/setting/index',
@@ -46,6 +39,7 @@ const getTimeState = () => {
   // 返回当前时间段对应的状态
   return text;
 };
+const baseUrl = 'https://www.music999.cn';
 
 export default class Mine extends Component {
   constructor() {
@@ -55,12 +49,10 @@ export default class Mine extends Component {
       isAuth: false,
       mobile: '',
       userInfo: {},
+      userName: '',
       titleBarHeight: 48,
       barHeight: 0,
     };
-  }
-  componentDidMount() {
-    setRequestRecord();
   }
   componentDidShow() {
     const { statusBarHeight, platform } = Taro.getSystemInfoSync();
@@ -73,26 +65,37 @@ export default class Mine extends Component {
       barHeight: statusBarHeight
     });
     this.handleGetUserAuthInfo();
-    this.handleGetServiceTel()
   }
   handleGetUserAuthInfo() {
-    getUserAuthInfo().then((res) => {
-      if (res.code === 200) {
-        this.setState({
-          userInfo: res.data
-        });
-        Taro.setStorageSync('userInfo', res.data);
-        this.isLogin = true;
-      } 
-    })
+      let that = this;
+      Taro.login({
+        success: function (r) {
+          if (r.code) {
+            Taro.request({
+              url: baseUrl + `/wx/user/login?code=${r.code}`,
+              header: {
+                'Content-Type': 'application/json',
+                locale: 'zh_CN'
+              },
+              mode: 'cors',
+              method: 'GET'
+            }).then((result) => {
+              if(result.data.code == 0){
+                 Taro.setStorageSync('token',result.data.data.token)
+                 Taro.setStorageSync('userNick',result.data.data.userNick)
+                 Taro.setStorageSync('userId',result.data.data.id)
+                 that.setState({
+                  userName: result.data.data.userNick
+                 })
+              }
+            });
+          } else {
+            console.log('登录失败！');
+          }
+        }
+      });
   }
- openKefu = () => {
-    Taro.openCustomerServiceChat({
-      extInfo: {url: 'https://work.weixin.qq.com/kfid/kfc0dd51752a4264de6'},
-      corpId: 'ww4f80bbb63adc3abd',
-      success() {}
-    })
-  }
+
   handleClickMenu = (item) => {
     if (!this.isLogin) {
       // 获取一下当前页面路径及参数
@@ -109,32 +112,22 @@ export default class Mine extends Component {
       return;
     }
   };
-  handleGetServiceTel = () => {
-    getServiceTel().then((res) => {
-      if (res.code === 200) {
-        this.setState({
-          mobile: res.data.mobile
-        });
-        Taro.setStorageSync('serviceTel', res.data.mobile);
-      }
-    });
-  };
   onShareTimeline() {
     return {
-      title: '目里丨邀你参与精彩活动',
+      title: 'c',
       imageUrl: ShareLogoIcon,
       path: '/pages/home/index'
     };
   }
   onShareAppMessage() {
     return {
-      title: '目里丨邀你参与精彩活动',
+      title: '微群侠',
       imageUrl: ShareIcon,
       path: '/pages/home/index'
     };
   }
   render() {
-    const { menus, isAuth, userInfo, mobile } = this.state;
+    const { menus, isAuth, userInfo, mobile, userName } = this.state;
     return (
       <View className='mine_wrap'>
         <View className='mine_container' style={{ paddingTop: this.state.titleBarHeight + this.state.barHeight + 'px' }}>
@@ -146,13 +139,12 @@ export default class Mine extends Component {
                 this.handleClickMenu({});
               }}
             >
-              <Text>{userInfo.nickName ? userInfo.nickName : '点击登录'}</Text>
+              <Text>{userName}</Text>
               {
-                userInfo.nickName && <View className='editWrap'>
+                userName && <View className='editWrap'>
                     <View className='iconfont icona-icon48xie-stroke1'></View>
                 </View>
               }
-              
             </View>
           </View>
           <View className='lix_coupon_wrap'>
@@ -160,7 +152,7 @@ export default class Mine extends Component {
               className='lix_coupon_box'
             >
               <View className='lix_coupon_box_top'>
-                <Text>里享币</Text>
+                <Text>我的侠币</Text>
                 <View className='iconfont icon  icona-icon48jifen'></View>
               </View>
               <View className='num'>{userInfo.point || 0}</View>
@@ -169,17 +161,7 @@ export default class Mine extends Component {
               className='lix_coupon_box margin_box'
             >
               <View className='lix_coupon_box_top'>
-                <Text>卡券</Text>
-                <View className='iconfont icon  icona-icon48youhuiquan'></View>
-                {/* <Image className="icon" src={CouponIcon}></Image> */}
-              </View>
-              <View className='num'>{userInfo.couponCount || 0}</View>
-            </View>
-            <View
-              className='lix_coupon_box'
-            >
-              <View className='lix_coupon_box_top'>
-                <Text>订单</Text>
+                <Text>我的微群</Text>
                 <View className='iconfont icon  iconwenzhang'></View>
                 {/* <Image className="icon" src={ScoreIcon}></Image> */}
               </View>

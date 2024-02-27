@@ -344,22 +344,21 @@ export const deleSpac = (str,direction) => { // 1 串的模板 2 清除哪边空
 }
 export const handleUploadFile = (file) => {
   return new Promise((r, s) => {
-    let baseUrl = 'https://pro.api.ooelicloud.com';
-    if (process.env.ENV === 'test' || process.env.ENV === 'development') {
-      baseUrl = 'http://121.40.138.127:30003';
-    }
+    let baseUrl = 'https://www.music999.cn';
     Taro.uploadFile({
-      url: `${baseUrl}/service-third/third/file/upload`, //仅为示例，非真实的接口地址
+      url: `${baseUrl}/file/qr_code/upload`, //仅为示例，非真实的接口地址
       filePath: file,
-      name: 'uploadFile',
+      name: 'file',
       header: {
-        'Content-Type': 'application/json',
-        token: getGlobalData('token'),
+        'Content-Type': 'application/x-www-form-urlencoded',
         locale: 'zh_CN'
       },
       success(res) {
         const result = JSON.parse(res.data);
         r(result.data);
+      },
+      fail(){
+        Taro.hideLoading();
       }
     });
   });

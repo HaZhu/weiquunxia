@@ -17,7 +17,7 @@ const MembershipCode = () => {
     const res = await groupDetail({
       id: params.id
     });
-    if (res.code === 200) {
+    if (res.code === 0) {
       setGroupInfo(res.data);
     }
   };
@@ -39,12 +39,10 @@ const MembershipCode = () => {
           <View className='lxb_num'>群ID：987890</View>
           <View className='lxb_money'>微群人数：{groupInfo.peopleNum}</View>
           <View className='lxb_money'>创建时间：{}</View>
-          {/* <View className="code_img"> */}
           {true ? (
             <View className='webp_wrap'>
                   <Image className='codeImg' src={groupInfo.qrCodeUrl}></Image>
              </View>
-            // <QRCode className='code_img' text="fwefwef12233" size={getPx(400)} scale={4} errorCorrectLevel='M' typeNumber={5} />
           ) : (
             <View className='webp_wrap'>
               <Image
