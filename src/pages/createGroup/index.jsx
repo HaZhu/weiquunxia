@@ -69,9 +69,10 @@ const OpenInvoice = () => {
           title: '上传中...'
         });
         const r = await handleUploadFile(res.tempFilePaths[0]);
-        if(r.qrCodeOrigin != 1 || r.qrCodeOrigin != 2){
-          showToast('请上传微信群二维码或者企业群二维码')
+        if( !r || (r.qrCodeOrigin != 1 && r.qrCodeOrigin != 2)){
           Taro.hideLoading();
+          showToast('请上传微信群二维码或者企业群二维码')
+          return
         }
         let _formData = {...formData};
         _formData[type] = r.qrCodeUrl;

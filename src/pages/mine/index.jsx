@@ -84,6 +84,7 @@ export default class Mine extends Component {
                  Taro.setStorageSync('token',result.data.data.token)
                  Taro.setStorageSync('userNick',result.data.data.userNick)
                  Taro.setStorageSync('userId',result.data.data.id)
+                 that.isLogin = true
                  that.setState({
                   userName: result.data.data.userNick
                  })

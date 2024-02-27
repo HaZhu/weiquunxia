@@ -262,6 +262,7 @@ export const escape2Html = (str) => {
 };
 // 页面埋点
 export const setRequestRecord = (pagePath) => {
+  return;
   const ROUTER = pagePath ? pagePath : Taro.getCurrentInstance().router;
   let path = ROUTER.path;
   let params = '';

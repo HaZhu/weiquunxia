@@ -39,9 +39,14 @@ const MembershipCode = () => {
           <View className='lxb_num'>群ID：987890</View>
           <View className='lxb_money'>微群人数：{groupInfo.peopleNum}</View>
           <View className='lxb_money'>创建时间：{}</View>
-          {true ? (
+          {groupInfo.qrCodeUrl ? (
             <View className='webp_wrap'>
-                  <Image className='codeImg' src={groupInfo.qrCodeUrl}></Image>
+                  <Image onClick={() => {
+                    Taro.previewImage({
+                      current: groupInfo.qrCodeUrl, // 当前显示图片的http链接
+                      urls: [groupInfo.qrCodeUrl] // 需要预览的图片http链接列表
+                    })
+                  }} className='codeImg' src={groupInfo.qrCodeUrl}></Image>
              </View>
           ) : (
             <View className='webp_wrap'>

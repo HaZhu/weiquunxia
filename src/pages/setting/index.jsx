@@ -9,13 +9,6 @@ import './index.less';
 
 const menus = [
   {
-    path: '/pages/setting/userInfo/index',
-    icon: 'icona-tubiao',
-    text: '个人信息',
-    isIconFont: true,
-    id: 'userInfo'
-  },
-  {
     path: '/pages/setting/accountSave/index',
     icon: 'icona-icon48zhanghaoanquan',
     text: '账号安全',
