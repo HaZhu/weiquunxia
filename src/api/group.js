@@ -13,6 +13,13 @@ export const groupListByPage = (data) =>
     method: 'POST',
     data
   });
+// 分页查询群信息
+export const listByPageSelf = (data) =>
+  request({
+    url: `/group/listByPageSelf`,
+    method: 'POST',
+    data
+  });
 // 群详情信息
 export const groupDetail = (data) =>
   request({

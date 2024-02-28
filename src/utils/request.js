@@ -7,8 +7,8 @@ let baseUrl = 'https://www.music999.cn';
 // if (process.env.ENV === 'test' || process.env.ENV === 'development') {
 //   baseUrl = 'http://121.40.138.127:30003';
 // }
-let isRefreshing = true;
 let pendings = [];
+let timer ;
 const request = (options = { method: 'GET', data: {}, contentType: 'application/json' }) => {
   const data = {
     ...(options.data || {})
@@ -28,15 +28,15 @@ const request = (options = { method: 'GET', data: {}, contentType: 'application/
     })
       .then((res) => {
         const { statusCode} = res;
-        if (statusCode !== 200 || (res.data.code && res.data.code !== 200)) {
+        if (statusCode !== 200 || (res.data.code && res.data.code !== 0)) {
           if (res.data.code === 501) {
             pendings.push(() => {
               resolve(request({ ...options }));
             });
-            if (isRefreshing) {
-              updateToken(options);
-              isRefreshing = false;
-            }
+            clearTimeout(timer)
+            timer = setTimeout(() => {
+                updateToken(options);
+            }, 2000);
           } else {
             if(options.errHideMsg){
                resolve(res.data);
@@ -73,15 +73,14 @@ const updateToken = () => {
           mode: 'cors',
           method: 'GET'
         }).then((result) => {
-          if (result.data.code == 200) {
+          if (result.data.code == 0) {
             if (result.data.data) {
               Taro.setStorageSync('token', result.data.data);
-              isRefreshing = true;
               pendings.map((callback) => {
                 callback();
               });
+              pendings = [];
             } else {
-              isRefreshing = true;
               pendings = [];
             }
           }

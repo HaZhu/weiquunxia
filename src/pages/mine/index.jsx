@@ -160,6 +160,11 @@ export default class Mine extends Component {
             </View>
             <View
               className='lix_coupon_box margin_box'
+              onClick={() => {
+                Taro.navigateTo({
+                  url: '/pages/myGroupList/index'
+                })
+              }}
             >
               <View className='lix_coupon_box_top'>
                 <Text>我的微群</Text>

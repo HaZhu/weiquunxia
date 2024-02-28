@@ -2,6 +2,7 @@ export default {
   pages: [
     'pages/home/index', //首页
     'pages/mine/index', //我的
+    'pages/myGroupList/index', //首页
     'pages/login/index', //登录页面
     'pages/smsCode/index', //短信页面
     'pages/newPhone/index', //更换手机页面

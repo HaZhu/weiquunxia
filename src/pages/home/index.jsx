@@ -9,7 +9,7 @@ import {
 import styles from './home.module.less';
 let baseUrl = 'https://www.music999.cn';
 
-const Home = () => {
+const MyGroupList = () => {
   const [banners, setBanner] = useState([{
     image: 'https://temmoku2020.oss-cn-hangzhou.aliyuncs.com/7cdb32c0392374798b75a758ad2386370d4562e8.jpg'
   },{
@@ -182,4 +182,4 @@ const Home = () => {
     </View>
   );
 };
-export default Home;
+export default MyGroupList;
