@@ -5,13 +5,15 @@ import RadioGroup from '@/components/RadioGroup';
 import {  showToast, handleUploadFile} from '@/utils';
 import {
   groupCreate,
+  groupDetail,
   tagList
 } from '@/api/group'
+
 import BackIcon from '@/components/BackIcon';
 import { useGetBarHeight } from '@/hooks';
 import './index.less';
 
-const CreatGroup = () => {
+const EditGroup = () => {
   const INVOICE_TITLE_OPTIONS = [
     {
       label: '企业微信',
@@ -48,6 +50,15 @@ const CreatGroup = () => {
       setShopList(res.data)
     }
 }
+  const handleGetDetail = async () => {
+    const res = await groupDetail({
+      id: params.id
+    });
+    if (res.code === 0) {
+      console.log(res.data)
+    }
+  };
+
   usePageScroll((e) => {
     const scrollTop = e.scrollTop;
     const opcityValue = scrollTop / 40 > 1 ? 1 : scrollTop / 40;
@@ -55,6 +66,7 @@ const CreatGroup = () => {
   });
   useEffect(() => {
     getTagList()
+    handleGetDetail();
   },[])
   const handleAddImg = (type) => {
     Taro.chooseImage({
@@ -229,4 +241,4 @@ const CreatGroup = () => {
     </View>
   );
 };
-export default CreatGroup;
+export default EditGroup;

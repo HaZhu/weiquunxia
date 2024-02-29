@@ -1,0 +1,229 @@
+.fb_open_invoice_container {
+  padding: 40px;
+  width: 100vw;
+  min-height: 100vh;
+  position: relative;
+  background: #F7F8FA;
+  padding-bottom: 220px;
+  .img_box {
+    margin-top: 32px;
+    display: flex;
+    padding-bottom: 48px;
+    border-bottom: 1px solid #d5d9dc;
+    align-items: center;
+    justify-content: space-between;
+    .text_box{
+      flex: 1;
+      .text_box_1{
+        font-size: 30px;
+        line-height: 44px;
+        font-weight: bold;
+        color: rgba(0, 0, 0, 0.9);
+      }
+      .text_box_2{
+        font-size: 26px;
+        line-height: 36px;
+        margin-top: 8px;
+        color: rgba(0, 0, 0, 0.6);
+      }
+    }
+    image {
+      width: 208px !important;
+      height: 208px !important;
+    }
+    .add_img {
+      width: 208px;
+      height: 208px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #e8ebee;
+      .iconfont {
+        font-size: 48px;
+      }
+    }
+  }
+  .border_bottom {
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      top: auto;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 1px;
+      transform: scaleY(0.5);
+      background-color: rgba(213, 217, 220, 1);
+    }
+  }
+  .sub_title {
+    height: 52px;
+    font-size: 38px;
+    line-height: 52px;
+    margin-top: 72px;
+    font-weight: bold;
+    .size_small {
+      font-size: 24px;
+    }
+  }
+  .invoice_form_content {
+    border-radius: 4px;
+    margin: 20px 0;
+    padding-bottom: 120px;
+    .invoice_form_content_row {
+      font-size: 30px;
+      color: #272727;
+      line-height: 40px;
+      height: 128px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      &_required {
+        font-size: 30px;
+        color: #ff4f5a;
+        display: inline-block;
+        margin-left: 10px;
+      }
+      .invoice_form_content_row_label {
+        width: 200px;
+        color: rgba(0, 0, 0, 0.6);
+      }
+      .invoice_form_content_row_val {
+        color: rgba(0, 0, 0, 0.9);
+        text-align: left;
+        flex: 1;
+      }
+      .invoice_form_content_row_val_title {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+        > .input {
+          flex: 1;
+          color: rgba(0, 0, 0, 0.35);
+        }
+        > .icon {
+          padding: 0 0 0 20px;
+          font-size: 28px;
+        }
+      }
+      .invoice_form_content_row_val_type {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+        > .input {
+          flex: 1;
+        }
+        > .icon {
+          padding: 0 0 0 20px;
+          font-size: 28px;
+        }
+      }
+      .invoiceDetail {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+      }
+    }
+  }
+  .disabled {
+    background: #d5d9dc;
+  }
+  .invoice-title{
+    justify-content: flex-start;
+  }
+  .btn_wrap {
+    display: flex;
+    height: 200px;
+    width: 100vw;
+    padding: 32px 40px;
+    justify-content: space-between;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background: #fff;
+    z-index: 22;
+    .btn_item {
+      width: 100%;
+      height: 96px;
+      font-size: 34px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #232529;
+      color: #fff;
+      font-weight: bold;
+      &.gray {
+        border: 0;
+        background: #d5d9dc;
+        color: #fff;
+      }
+      &.black {
+        border: 0;
+        background: #232529;
+        color: #fff;
+      }
+      &.widthFix{
+        width: 100%;
+      }
+    }
+  }
+  .item_time {
+    color: rgba(0, 0, 0, 0.6);
+    width: 200px;
+  }
+  .item_wrap {
+    height: 128px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 26px;
+    border-bottom: 0.5px solid #d5d9dc;
+  }
+  .shop_scroll_wrap {
+    position: relative;
+    font-size: 30px;
+    .item_input {
+      flex: 1;
+    }
+   
+    .input_item_wrap {
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+    .shop_scroll_view {
+      max-height: 400px;
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      transform: translateY(100%);
+      background: rgba(255, 255, 255, 0.3);
+      z-index: 1111;
+      border: 2px solid #e8e8e8;
+      animation: shopAnimate 0.3s;
+      .scroll_item {
+        height: 100px;
+        line-height: 100px;
+        font-size: 28px;
+        padding: 0 30px;
+        font-weight: bold;
+        border-bottom: 1px solid #e8e8e8;
+        color: #000000;
+        background: #fff;
+      }
+      .gray {
+        color: gray;
+        font-weight: normal;
+      }
+    }
+  }
+  .iconduanjiantou-xia{
+    font-size: 32px;
+  }
+}

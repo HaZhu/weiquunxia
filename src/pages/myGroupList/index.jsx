@@ -1,8 +1,7 @@
 import Taro, { useReachBottom } from '@tarojs/taro';
 import React, { useState, useEffect } from 'react';
-import { View, Swiper, SwiperItem, Image} from '@tarojs/components';
-import { AtSearchBar, AtTabs, AtTag } from 'taro-ui'
-import ActiveNavigation from '@/components/ActiveNavigation';
+import { View, Image} from '@tarojs/components';
+import {  AtTag } from 'taro-ui'
 import {
   listByPageSelf
 } from '@/api/group'
@@ -69,7 +68,7 @@ const Home = () => {
             </View>
             <View className={`${styles['list_right']}`} onClick={() => {
               Taro.navigateTo({
-                url: `/pages/membershipCode/index?id=${item.id}`
+                url: `/pages/editGroup/index?id=${item.id}`
               })
             }}>
               <AtTag type='primary' active circle>编辑</AtTag>
@@ -78,8 +77,6 @@ const Home = () => {
           })
         }
       </View>
-      <ActiveNavigation></ActiveNavigation>
-
     </View>
   );
 };
