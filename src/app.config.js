@@ -17,7 +17,7 @@ export default {
   subpackages: [
     {
       root: 'pages/setting',
-      pages: ['index', 'accountSave/index', 'userInfo/index', 'about/index', 'userInfoResult/index']
+      pages: ['index', 'accountSave/index', 'userInfo/index', 'about/index']
     }
   ],
   window: {

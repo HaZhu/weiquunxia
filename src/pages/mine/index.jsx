@@ -134,7 +134,11 @@ export default class Mine extends Component {
             >
               <Text>{userName}</Text>
               {
-                userName && <View className='editWrap'>
+                userName && <View className='editWrap' onClick={() => {
+                  Taro.navigateTo({
+                    url: '/pages/setting/userInfo/index'
+                  })
+                }}>
                     <View className='iconfont icona-icon48xie-stroke1'></View>
                 </View>
               }
@@ -145,7 +149,7 @@ export default class Mine extends Component {
               className='lix_coupon_box'
             >
               <View className='lix_coupon_box_top'>
-                <Text>我的侠币</Text>
+                <Text>我的群币</Text>
                 <View className='iconfont icon  icona-icon48jifen'></View>
               </View>
               <View className='num'>{userInfo.point || 0}</View>
@@ -182,13 +186,17 @@ export default class Mine extends Component {
             })}
           </View>
           <View className='tel_wrap'>
-            <View className='tel_box' onClick={() => this.openKefu()}> 
+            <View className='tel_box' onClick={() => {
+                Taro.makePhoneCall({
+                  phoneNumber: 19560197817
+                });
+            }}> 
               <View className='iconfont tel_icon icona-icon48kefu'></View>
-              <Text>在线客服</Text>
+              <Text>广告招租</Text>
             </View>
             <View className='tel_box' onClick={() => {
                 Taro.makePhoneCall({
-                  phoneNumber: 18250476269
+                  phoneNumber: 19560197817
                 });
             }}
             > 

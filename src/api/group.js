@@ -27,6 +27,13 @@ export const listByPageSelf = (data) =>
     method: 'POST',
     data
   });
+// 编辑昵称
+export const userEdit = (data) =>
+  request({
+    url: `/wx/user/edit`,
+    method: 'POST',
+    data
+  });
 // 群详情信息
 export const groupDetail = (data) =>
   request({

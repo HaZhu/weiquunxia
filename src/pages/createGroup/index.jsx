@@ -138,13 +138,13 @@ const CreatGroup = () => {
             </View>
           </View>
           <View className='invoice_form_content_row border_bottom'>
-            <View className='invoice_form_content_row_label'>群人数</View>
+            <View className='invoice_form_content_row_label'>群公告</View>
             <View className='invoice_form_content_row_val'>
               <Input
                 className='input'
                 value={formData.peopleNum}
-                maxlength={18}
-                placeholder='请输入群人数'
+                maxlength={50}
+                placeholder='请输入群公告'
                 onInput={(e) => {
                   handleChangeFormData(e.detail.value, 'peopleNum');
                 }}

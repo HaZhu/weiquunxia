@@ -33,11 +33,11 @@ const MembershipCode = () => {
           <View className='lxb_name'>
             <View className='user_name'>群名称：{groupInfo.groupName}</View>
             <View className='user_info'>
-              <Text>创建者：--</Text>
+              <Text>创建者：</Text>
             </View>
           </View>
           <View className='lxb_num'>群ID：{groupInfo.id}</View>
-          <View className='lxb_money'>微群人数：{groupInfo.peopleNum}</View>
+          <View className='lxb_money'>微群公告：{groupInfo.peopleNum}</View>
           <View className='lxb_money'>创建时间：{dayjs(groupInfo.creatTime).format('YYYY-MM-DD')}</View>
           {groupInfo.qrCodeUrl ? (
             <View className='webp_wrap'>
@@ -57,7 +57,7 @@ const MembershipCode = () => {
             </View>
           )}
           {/* </View> */}
-          <View className='code_text'></View>
+          <View className='code_text'>点击二维码，长按加群</View>
           <View className='user_register_time'></View>
         </View>
       </View>
