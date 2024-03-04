@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import RadioGroup from '@/components/RadioGroup';
 import {  showToast, handleUploadFile} from '@/utils';
 import {
-  groupCreate,
+  editCreate,
   groupDetail,
   tagList
 } from '@/api/group'
@@ -51,11 +51,19 @@ const EditGroup = () => {
     }
 }
   const handleGetDetail = async () => {
-    const res = await groupDetail({
+    const {code,data} = await groupDetail({
       id: params.id
     });
-    if (res.code === 0) {
-      console.log(res.data)
+    if (code === 0) {
+      setFormData({
+        qrCodeUrl: data.qrCodeUrl,
+        headImagePic: '',
+        tagId: data.tagId,
+        tagName: data.tagName,
+        groupType: data.groupType, // 1微信 2企业
+        groupName: data.groupName, //名称
+        peopleNum: data.peopleNum, //人数
+      })
     }
   };
 
@@ -99,18 +107,9 @@ const EditGroup = () => {
   const handleSubmit = async () => {
     if (!handleCheck()) return;
     let query = { ...formData };
-    const res = await groupCreate(query)
+    const res = await editCreate(query)
     if (res.code === 0) {
-      showToast('提交成功，等待管理员审核')
-      setFormData({
-        qrCodeUrl: '',
-        headImagePic: '',
-        tagId: '',
-        tagName: '',
-        groupType: 2, // 1微信 2企业
-        groupName: '', //名称
-        peopleNum: '', //人数
-      })
+      showToast('修改成功，等待管理员审核')
     }
   };
   return (

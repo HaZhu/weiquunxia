@@ -6,6 +6,13 @@ export const groupCreate = (data) =>
     method: 'POST',
     data
   });
+// 编辑群
+export const editCreate = (data) =>
+  request({
+    url: `/group/edit`,
+    method: 'POST',
+    data
+  });
 // 分页查询群信息
 export const groupListByPage = (data) =>
   request({

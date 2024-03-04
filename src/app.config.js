@@ -12,7 +12,7 @@ export default {
     'pages/quickLogin/index', //快捷登录
     'pages/codePage/index', //二维码中转页面
     'pages/createGroup/index', //二维码中转页面
-    'pages/edittGroup/index', //二维码中转页面
+    'pages/editGroup/index', //二维码中转页面
   ],
   subpackages: [
     {

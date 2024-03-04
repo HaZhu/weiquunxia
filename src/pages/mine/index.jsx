@@ -98,14 +98,6 @@ export default class Mine extends Component {
   }
 
   handleClickMenu = (item) => {
-    if (!this.isLogin) {
-      // 获取一下当前页面路径及参数
-      setLoginReturnUrl(item);
-      Taro.navigateTo({
-        url: '/pages/quickLogin/index'
-      });
-      return;
-    }
     if (item.path) {
       Taro.navigateTo({
         url: item.path
@@ -115,7 +107,7 @@ export default class Mine extends Component {
   };
   onShareTimeline() {
     return {
-      title: 'c',
+      title: '微群侠',
       imageUrl: ShareLogoIcon,
       path: '/pages/home/index'
     };
