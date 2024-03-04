@@ -14,6 +14,7 @@ import { useGetBarHeight } from '@/hooks';
 import './index.less';
 
 const EditGroup = () => {
+  const params = useRouter().params;
   const INVOICE_TITLE_OPTIONS = [
     {
       label: '企业微信',

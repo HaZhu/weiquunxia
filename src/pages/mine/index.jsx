@@ -188,7 +188,7 @@ export default class Mine extends Component {
             </View>
             <View className='tel_box' onClick={() => {
                 Taro.makePhoneCall({
-                  phoneNumber: mobile
+                  phoneNumber: 18250476269
                 });
             }}
             > 
