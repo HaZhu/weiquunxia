@@ -30,7 +30,7 @@ const CreatGroup = () => {
       tagName: '',
       groupType: 2, // 1微信 2企业
       groupName: '', //名称
-      peopleNum: '', //人数
+      remark: '', //人数
     };
   });
   const [shoplistShow, setShoplistShow] = useState(false);
@@ -89,7 +89,7 @@ const CreatGroup = () => {
     let query = { ...formData };
     const res = await groupCreate(query)
     if (res.code === 0) {
-      showToast('提交成功，等待管理员审核')
+      showToast('创建成功')
       setFormData({
         qrCodeUrl: '',
         headImagePic: '',
@@ -97,7 +97,7 @@ const CreatGroup = () => {
         tagName: '',
         groupType: 2, // 1微信 2企业
         groupName: '', //名称
-        peopleNum: '', //人数
+        remark: '', //人数
       })
     }
   };
@@ -142,11 +142,11 @@ const CreatGroup = () => {
             <View className='invoice_form_content_row_val'>
               <Input
                 className='input'
-                value={formData.peopleNum}
+                value={formData.remark}
                 maxlength={50}
                 placeholder='请输入群公告'
                 onInput={(e) => {
-                  handleChangeFormData(e.detail.value, 'peopleNum');
+                  handleChangeFormData(e.detail.value, 'remark');
                 }}
               />
             </View>

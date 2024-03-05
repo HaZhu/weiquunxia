@@ -163,7 +163,7 @@ const MyGroupList = () => {
                </View>
                <View className={`${styles['list_center_bottom']}`}>
                   <View className={`iconfont icona-icon48huiyuanzhuanshu ${styles['iconfont2']}`}></View>
-                  <View className={` text_cut_1 ${styles['num']}`}>{item.peopleNum}人</View>
+                  <View className={` text_cut_1 ${styles['num']}`}>创建者：{item.publishUserNick || '神秘人'}</View>
                </View>
             </View>
             <View className={`${styles['list_right']}`} onClick={() => {

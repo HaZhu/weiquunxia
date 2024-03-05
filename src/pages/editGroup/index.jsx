@@ -33,7 +33,7 @@ const EditGroup = () => {
       tagName: '',
       groupType: 2, // 1微信 2企业
       groupName: '', //名称
-      peopleNum: '', //人数
+      remark: '', //人数
     };
   });
   const [shoplistShow, setShoplistShow] = useState(false);
@@ -63,7 +63,7 @@ const EditGroup = () => {
         tagName: data.tagName,
         groupType: data.groupType, // 1微信 2企业
         groupName: data.groupName, //名称
-        peopleNum: data.peopleNum, //人数
+        remark: data.remark, //人数
       })
     }
   };
@@ -108,9 +108,10 @@ const EditGroup = () => {
   const handleSubmit = async () => {
     if (!handleCheck()) return;
     let query = { ...formData };
+    query.id = params.id
     const res = await editCreate(query)
     if (res.code === 0) {
-      showToast('修改成功，等待管理员审核')
+      showToast('修改成功')
     }
   };
   return (
@@ -154,11 +155,11 @@ const EditGroup = () => {
             <View className='invoice_form_content_row_val'>
               <Input
                 className='input'
-                value={formData.peopleNum}
+                value={formData.remark}
                 maxlength={18}
                 placeholder='请输入群公告'
                 onInput={(e) => {
-                  handleChangeFormData(e.detail.value, 'peopleNum');
+                  handleChangeFormData(e.detail.value, 'remark');
                 }}
               />
             </View>
@@ -234,7 +235,7 @@ const EditGroup = () => {
         </View>
           <View className='btn_wrap'>
             <View className={`btn_item widthFix ${!handleCheck() && 'gray'}`} onClick={handleSubmit}>
-                提交
+                修改
             </View>
           </View>
       </View>

@@ -21,7 +21,7 @@ const UserInfo = (props) => {
     <View className="user_info_container">
       <View className="page_title">个人信息</View>
       <View className="tip">输入昵称</View>
-      <Input className="ipt" value={userInfo.nickName} onBlur={(e) => handleChange(e, 'name')} />
+      <Input className="ipt" maxlength={12} value={userInfo.nickName} onBlur={(e) => handleChange(e, 'name')} />
     </View>
   );
 };
