@@ -2,9 +2,6 @@ import { Component } from 'react';
 import { View, Text, Image } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 import Arrow from '@/assets/arrowRight.png';
-import { setLoginReturnUrl,  ShareIcon } from '@/utils/index';
-
-import ShareLogoIcon from '@/assets/logo.png';
 import './index.less';
 
 const MENUS = [
@@ -13,11 +10,11 @@ const MENUS = [
     icon: 'icona-icon48xie-stroke1',
     text: '反馈与建议'
   },
-  {
-    path: '/pages/setting/index',
-    icon: 'icona-icon48shezhi',
-    text: '设置'
-  }
+  // {
+  //   path: '/pages/setting/index',
+  //   icon: 'icona-icon48shezhi',
+  //   text: '设置'
+  // }
 ];
 const getTimeState = () => {
   // 获取当前时间
@@ -107,15 +104,13 @@ export default class Mine extends Component {
   };
   onShareTimeline() {
     return {
-      title: '微群侠',
-      imageUrl: ShareLogoIcon,
+      title: '群觅，这里有你想要的群',
       path: '/pages/home/index'
     };
   }
   onShareAppMessage() {
     return {
-      title: '微群侠',
-      imageUrl: ShareIcon,
+      title: '群觅，这里有你想要的群',
       path: '/pages/home/index'
     };
   }

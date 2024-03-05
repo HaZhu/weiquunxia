@@ -13,7 +13,7 @@ export default class Login extends Component {
   };
   componentDidMount() {
     Taro.setNavigationBarTitle({
-      title: '目里'
+      title: '群觅'
     });
     this.params = getCurrentInstance().router.params;
   }
@@ -46,9 +46,9 @@ export default class Login extends Component {
     const { phone, disabled, agree } = this.state;
     return (
       <View className='login_wrapper'>
-        <View className='title'>欢迎登录目里</View>
+        <View className='title'>欢迎登录群觅</View>
         <Input className='ipt' placeholder='请输入手机号' maxlength={11} type='number' value={phone} onInput={this.handleInputPhone} />
-        <View className='tips'>未注册的手机号验证后自动创建目里账户</View>
+        <View className='tips'>未注册的手机号验证后自动创建群觅账户</View>
         <View className={`submit_btn ${disabled && 'disable'}`} onClick={this.handleClick}>
           获取验证码
         </View>

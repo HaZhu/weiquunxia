@@ -18,7 +18,7 @@ const menus = [
   {
     path: '/pages/setting/about/index',
     icon: 'icona-48pt-jinggao-miaobian',
-    text: '关于目里',
+    text: '关于群觅',
     isIconFont: true,
     id: 'about'
   },

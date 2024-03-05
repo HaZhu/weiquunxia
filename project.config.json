@@ -1,7 +1,7 @@
 {
   "miniprogramRoot": "./dist",
   "projectname": "myApp",
-  "description": "微群侠",
+  "description": "群觅",
   "appid": "wx48a800e1898a29f5",
   "setting": {
     "urlCheck": true,

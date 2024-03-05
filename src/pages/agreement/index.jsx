@@ -14,7 +14,7 @@ export default class Mine extends Component {
 
     // https://pro.api.ooelicloud.com/h5/privateInfo.html 隐私政策
     // https://pro.api.ooelicloud.com/h5/serviceInfo.html 服务条款
-    // https://pro.api.ooelicloud.com/h5/user.html 目里 APP协议条款
+    // https://pro.api.ooelicloud.com/h5/user.html 群觅 APP协议条款
     // https://pro.api.ooelicloud.com/h5/policyInfo.html 会员规则
     // https://pro.api.ooelicloud.com/h5/companyInfo.html  关于我们
 

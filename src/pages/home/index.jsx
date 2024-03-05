@@ -1,5 +1,7 @@
 import Taro, { useReachBottom } from '@tarojs/taro';
 import React, { useState, useEffect } from 'react';
+import Taro, { useShareTimeline, useShareAppMessage } from '@tarojs/taro';
+
 import { View, Swiper, SwiperItem, Image} from '@tarojs/components';
 import { AtSearchBar, AtTabs, AtTag } from 'taro-ui'
 import ActiveNavigation from '@/components/ActiveNavigation';
@@ -11,9 +13,9 @@ let baseUrl = 'https://www.music999.cn';
 
 const MyGroupList = () => {
   const [banners, setBanner] = useState([{
-    image: 'https://temmoku2020.oss-cn-hangzhou.aliyuncs.com/7cdb32c0392374798b75a758ad2386370d4562e8.jpg'
+    image: 'https://temmoku2020.oss-cn-hangzhou.aliyuncs.com/ed483981dc57719473015ef4fac3e2bbefb6f57c.jpeg'
   },{
-    image: 'https://temmoku2020.oss-cn-hangzhou.aliyuncs.com/78985e7e2b61334cef8b35764c04ff05651aa757.jpg'
+    image: 'https://temmoku2020.oss-cn-hangzhou.aliyuncs.com/3f9974421ca9e9b1032c6c39348325777cd6d384.jpeg'
   }]);
   const [tabList,setTabList] = useState([])
   
@@ -93,7 +95,19 @@ const MyGroupList = () => {
       }
     });
   }
-  
+  useShareTimeline(() => {
+    return {
+      title: '群觅，这里有你想要的群',
+      path: '/pages/home/index'
+    };
+  });
+ 
+  useShareAppMessage(() => {
+    return {
+      title: '群觅，这里有你想要的群',
+      path: '/pages/home/index'
+    };
+  })
   useReachBottom(() => {
     if (hasMore) {
       getGroupList(true);
@@ -108,6 +122,7 @@ const MyGroupList = () => {
     getTagList()
     getUser()
   }, []);
+
   return (
     <View className={`${styles['home_page']}`}>
       <Swiper

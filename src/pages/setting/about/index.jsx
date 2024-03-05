@@ -51,10 +51,10 @@ const About = (props) => {
   }, []);
   return (
     <View className='about_container'>
-      <View className='page_title'>关于目里</View>
+      <View className='page_title'>关于群觅</View>
       <View className='logo_wrap'>
         <Image className='logo' src={Logo}></Image>
-        <View className='title'>目里小程序V3.0.0</View>
+        <View className='title'>群觅小程序V3.0.0</View>
       </View>
       <View className='menus'>
         {menus.map((item, index) => {

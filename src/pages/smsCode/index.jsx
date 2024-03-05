@@ -25,7 +25,7 @@ export default class Login extends Component {
     this.captchPhone = Taro.getStorageSync('captchPhone');
     this.captchToken = Taro.getStorageSync('captchToken');
     Taro.setNavigationBarTitle({
-      title: '目里'
+      title: '群觅'
     });
     this.setState(
       {

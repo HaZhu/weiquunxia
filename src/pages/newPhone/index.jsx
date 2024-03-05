@@ -11,7 +11,7 @@ export default class NewPhone extends Component {
   };
   componentDidMount() {
     Taro.setNavigationBarTitle({
-      title: '目里'
+      title: '群觅'
     });
     setRequestRecord();
   }
