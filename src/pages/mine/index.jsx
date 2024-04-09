@@ -49,6 +49,7 @@ export default class Mine extends Component {
       userName: '',
       titleBarHeight: 48,
       barHeight: 0,
+      isLogin:false
     };
   }
   componentDidShow() {
@@ -81,9 +82,9 @@ export default class Mine extends Component {
                  Taro.setStorageSync('token',result.data.data.token)
                  Taro.setStorageSync('userNick',result.data.data.userNick)
                  Taro.setStorageSync('userId',result.data.data.id)
-                 that.isLogin = true
                  that.setState({
-                  userName: result.data.data.userNick
+                  userName: result.data.data.userNick,
+                  isLogin: true
                  })
               }
             });
@@ -115,7 +116,7 @@ export default class Mine extends Component {
     };
   }
   render() {
-    const { menus, isAuth, userInfo, mobile, userName } = this.state;
+    const { menus, isAuth, userInfo, isLogin, userName } = this.state;
     return (
       <View className='mine_wrap'>
         <View className='mine_container' style={{ paddingTop: this.state.titleBarHeight + this.state.barHeight + 'px' }}>
@@ -127,9 +128,9 @@ export default class Mine extends Component {
                 this.handleClickMenu({});
               }}
             >
-              <Text>{userName}</Text>
+              <Text>{userName || '神秘人'}</Text>
               {
-                userName && <View className='editWrap' onClick={() => {
+                isLogin && <View className='editWrap' onClick={() => {
                   Taro.navigateTo({
                     url: '/pages/setting/userInfo/index'
                   })
@@ -183,7 +184,7 @@ export default class Mine extends Component {
           <View className='tel_wrap'>
             <View className='tel_box' onClick={() => {
                 Taro.makePhoneCall({
-                  phoneNumber: 19560197817
+                  phoneNumber: '18250476269'
                 });
             }}> 
               <View className='iconfont tel_icon icona-icon48kefu'></View>
@@ -191,7 +192,7 @@ export default class Mine extends Component {
             </View>
             <View className='tel_box' onClick={() => {
                 Taro.makePhoneCall({
-                  phoneNumber: 19560197817
+                  phoneNumber: '18250476269'
                 });
             }}
             > 

@@ -46,7 +46,7 @@ const MembershipCode = () => {
                       current: groupInfo.qrCodeUrl, // 当前显示图片的http链接
                       urls: [groupInfo.qrCodeUrl] // 需要预览的图片http链接列表
                     })
-                  }} className='codeImg' src={groupInfo.qrCodeUrl}></Image>
+                  }} mode="aspectFill" className='codeImg' src={groupInfo.qrCodeUrl}></Image>
              </View>
           ) : (
             <View className='webp_wrap'>

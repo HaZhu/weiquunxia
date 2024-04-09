@@ -56,7 +56,7 @@ const CreatGroup = () => {
   useEffect(() => {
     getTagList()
   },[])
-  const handleAddImg = (type) => {
+  const handleAddImg = (type,fileType = 1) => {
     Taro.chooseImage({
       // count: 1 - imgArr.length, // 默认9
       count: 1, // 默认9
@@ -68,16 +68,24 @@ const CreatGroup = () => {
         Taro.showLoading({
           title: '上传中...'
         });
-        const r = await handleUploadFile(res.tempFilePaths[0]);
-        if( !r || (r.qrCodeOrigin != 1 && r.qrCodeOrigin != 2)){
+        if(fileType == 1){
+          const r = await handleUploadFile(res.tempFilePaths[0], '/file/qr_code/upload');
+          if( !r || (r.qrCodeOrigin != 1 && r.qrCodeOrigin != 2)){
+            Taro.hideLoading();
+            showToast('请上传微信群二维码或者企业群二维码')
+            return
+          }
+          let _formData = {...formData};
+          _formData[type] = r.qrCodeUrl;
+          setFormData(_formData)
           Taro.hideLoading();
-          showToast('请上传微信群二维码或者企业群二维码')
-          return
+        }else{
+          const r = await handleUploadFile(res.tempFilePaths[0]);
+          let _formData = {...formData};
+          _formData[type] = r;
+          setFormData(_formData)
+          Taro.hideLoading();
         }
-        let _formData = {...formData};
-        _formData[type] = r.qrCodeUrl;
-        setFormData(_formData)
-        Taro.hideLoading();
       }
     });
   };
@@ -209,13 +217,13 @@ const CreatGroup = () => {
             <View className='text_box_2'>上传微信群封面</View>
           </View>
         {!formData.headImagePic ? (
-          <View className='add_img' onClick={() => {handleAddImg('headImagePic')}}>
+          <View className='add_img' onClick={() => {handleAddImg('headImagePic',2)}}>
             <View className='iconfont iconstroke2'></View>
           </View>
         ) : <Image
           mode='aspectFit'
           onClick={() => {
-            handleAddImg('headImagePic')
+            handleAddImg('headImagePic',2)
          }}
           src={formData.headImagePic}
         ></Image>}

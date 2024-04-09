@@ -343,11 +343,11 @@ export const deleSpac = (str,direction) => { // 1 串的模板 2 清除哪边空
   }
   return newStr;
 }
-export const handleUploadFile = (file) => {
+export const handleUploadFile = (file, api = '/file/upload' ) => {
   return new Promise((r, s) => {
     let baseUrl = 'https://www.music999.cn';
     Taro.uploadFile({
-      url: `${baseUrl}/file/qr_code/upload`, //仅为示例，非真实的接口地址
+      url: `${baseUrl}${api}`, //仅为示例，非真实的接口地址
       filePath: file,
       name: 'file',
       header: {

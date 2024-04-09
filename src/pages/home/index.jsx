@@ -1,6 +1,5 @@
-import Taro, { useReachBottom } from '@tarojs/taro';
 import React, { useState, useEffect } from 'react';
-import Taro, { useShareTimeline, useShareAppMessage } from '@tarojs/taro';
+import Taro, { useShareTimeline,useReachBottom, useShareAppMessage, useDidShow } from '@tarojs/taro';
 
 import { View, Swiper, SwiperItem, Image} from '@tarojs/components';
 import { AtSearchBar, AtTabs, AtTag } from 'taro-ui'
@@ -8,14 +7,17 @@ import ActiveNavigation from '@/components/ActiveNavigation';
 import {
   groupListByPage, tagList
 } from '@/api/group'
+import B1Png from '@/assets/1.jpeg'
+import B2Png from '@/assets/2.jpeg'
+import LogoPng from '@/assets/3.jpeg'
 import styles from './home.module.less';
 let baseUrl = 'https://www.music999.cn';
 
 const MyGroupList = () => {
   const [banners, setBanner] = useState([{
-    image: 'https://temmoku2020.oss-cn-hangzhou.aliyuncs.com/ed483981dc57719473015ef4fac3e2bbefb6f57c.jpeg'
+    image: B1Png
   },{
-    image: 'https://temmoku2020.oss-cn-hangzhou.aliyuncs.com/3f9974421ca9e9b1032c6c39348325777cd6d384.jpeg'
+    image: B2Png
   }]);
   const [tabList,setTabList] = useState([])
   
@@ -25,13 +27,14 @@ const MyGroupList = () => {
   const [pageActive, setPageActive] = useState({
     pageNum: 0
   });
-  const [current,setCurrent] = useState(null)
-  const [currentId,setCurrentId] = useState(null)
+  const [current,setCurrent] = useState(0)
+  const [currentId,setCurrentId] = useState("")
 
   const getGroupList = async (isScroll = false) => {
     const res = await groupListByPage({
       offset: 0,
       pageSize: 20,
+      tagId: currentId,
       groupName: groupName,
     });
     if (isScroll) {
@@ -55,12 +58,15 @@ const MyGroupList = () => {
       if(res.data.length){
         let _taglist =  res.data.map(item => {
           return {
-            title: item.tagName
+            title: item.tagName,
+            id:item.id
           }
         })
+        _taglist.unshift({
+          title: '全部',
+          id: ""
+        })
         setTabList(_taglist)
-        setCurrent(0)
-        setCurrentId(res.data[0].id)
       }
   }
   const onChange =  (value) => {
@@ -114,14 +120,15 @@ const MyGroupList = () => {
     }
   });
   useEffect(() => {
-    if(currentId){
       getGroupList()
-    }
   }, [currentId]);
   useEffect(() => {
     getTagList()
     getUser()
   }, []);
+  useDidShow(() => {
+    getGroupList()
+  })
 
   return (
     <View className={`${styles['home_page']}`}>
@@ -169,7 +176,7 @@ const MyGroupList = () => {
           benefitsList.map(item => {
             return  <View className={`${styles['list']}`}>
             <View className={`${styles['list_left']}`}>
-              <Image className={`${styles['list_left_img']}`} src='https://temmoku2020.oss-cn-hangzhou.aliyuncs.com/7cdb32c0392374798b75a758ad2386370d4562e8.jpg'></Image>
+              <Image className={`${styles['list_left_img']}`} src={LogoPng}></Image>
             </View>
             <View className={`${styles['list_center']}`}>
                <View className={`${styles['list_center_top']}`}>
