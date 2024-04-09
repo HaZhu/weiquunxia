@@ -71,6 +71,7 @@ const MembershipCode = () => {
             <View className='pb'>投诉</View>
          </View>
       </View> */}
+      <View className='service_time_b'>入群谨防欺诈，所涉风险与本小程序无关，请自行判断并确保安全。</View>
     </View>
   );
 };

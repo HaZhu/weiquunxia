@@ -127,7 +127,7 @@ const MyGroupList = () => {
     getUser()
   }, []);
   useDidShow(() => {
-    getGroupList()
+      getGroupList()
   })
 
   return (

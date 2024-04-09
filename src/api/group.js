@@ -48,3 +48,10 @@ export const tagList = (data) =>
     method: 'GET',
     data
 });
+// 新增反馈建议
+export const suggestAdd = (data) =>
+  request({
+    url: `/suggest/add`,
+    method: 'POST',
+    data
+});

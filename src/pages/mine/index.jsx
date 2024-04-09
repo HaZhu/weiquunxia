@@ -1,7 +1,10 @@
 import { Component } from 'react';
 import { View, Text, Image } from '@tarojs/components';
-import Taro from '@tarojs/taro';
+import Taro, { useDidShow } from '@tarojs/taro';
 import Arrow from '@/assets/arrowRight.png';
+import {
+  listByPageSelf
+} from '@/api/group'
 import './index.less';
 
 const MENUS = [
@@ -38,6 +41,7 @@ const getTimeState = () => {
 };
 const baseUrl = 'https://www.music999.cn';
 
+
 export default class Mine extends Component {
   constructor() {
     super();
@@ -49,6 +53,7 @@ export default class Mine extends Component {
       userName: '',
       titleBarHeight: 48,
       barHeight: 0,
+      groupNum: 0,
       isLogin:false
     };
   }
@@ -62,8 +67,19 @@ export default class Mine extends Component {
     this.setState({
       barHeight: statusBarHeight
     });
+    this.getGroupList()
     this.handleGetUserAuthInfo();
   }
+   getGroupList = async () => {
+    const res = await listByPageSelf({
+      offset: 0,
+      pageSize: 100,
+      groupName: '',
+    });
+    this.setState({
+      groupNum: res.data.list.length
+    })
+  };
   handleGetUserAuthInfo() {
       let that = this;
       Taro.login({
@@ -116,7 +132,7 @@ export default class Mine extends Component {
     };
   }
   render() {
-    const { menus, isAuth, userInfo, isLogin, userName } = this.state;
+    const { menus, isAuth, userInfo, isLogin, userName,groupNum } = this.state;
     return (
       <View className='mine_wrap'>
         <View className='mine_container' style={{ paddingTop: this.state.titleBarHeight + this.state.barHeight + 'px' }}>
@@ -163,7 +179,7 @@ export default class Mine extends Component {
                 <View className='iconfont icon  iconwenzhang'></View>
                 {/* <Image className="icon" src={ScoreIcon}></Image> */}
               </View>
-              <View className='num'>{userInfo.orderCount || 0}</View>
+              <View className='num'>{groupNum || 0}</View>
             </View>
           </View>
           <View className='menus'>
@@ -201,6 +217,7 @@ export default class Mine extends Component {
             </View>
           </View>
           <View className='service_time'>服务时间10:00 - 20:00</View>
+          <View className='service_time_b'>最终解释权归杭州菁菁网络科技有限公司所有</View>
         </View>
       </View>
     );

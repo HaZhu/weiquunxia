@@ -1,7 +1,7 @@
 import { View,  Image, Textarea, Input } from '@tarojs/components';
 import { useState,  useEffect } from 'react';
 import Taro, { usePageScroll } from '@tarojs/taro';
-import { adviceSave } from '@/api';
+import { suggestAdd } from '@/api/group';
 import { showToast, setRequestRecord, handleUploadFile } from '@/utils';
 import BackIcon from '@/components/BackIcon';
 import { useGetBarHeight } from '@/hooks';
@@ -55,16 +55,13 @@ const Feedback = () => {
 
   const handleSubmit = async () => {
     if (!content) return;
-    const r = await Promise.all(imgArr.map((res) => handleUploadFile(res)));
-    const { nickName, phone } = Taro.getStorageSync('userInfo');
-    const res = await adviceSave({
-      contact,
+    // const r = await Promise.all(imgArr.map((res) => handleUploadFile(res)));
+    // const { nickName, phone } = Taro.getStorageSync('userInfo');
+    const res = await suggestAdd({
       content,
-      nickName,
-      phone,
-      images: r.join(';')
+      phone: contact
     });
-    if (res.code === 200) {
+    if (res.code === 0) {
       showToast('反馈成功');
       setTimeout(() => {
         Taro.navigateBack({
@@ -73,9 +70,9 @@ const Feedback = () => {
       }, 2000);
     }
   };
-  useEffect(() => {
-    setRequestRecord();
-  }, []);
+  // useEffect(() => {
+  //   setRequestRecord();
+  // }, []);
   return (
     <View className='feedback_wrap' style={{ paddingTop: titleBarHeight + barHeight + 'px' }}>
       <BackIcon></BackIcon>

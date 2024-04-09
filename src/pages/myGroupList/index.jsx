@@ -6,7 +6,7 @@ import {
   listByPageSelf
 } from '@/api/group'
 import styles from './home.module.less';
-
+import dayjs from 'dayjs';
 const Home = () => {
   const [hasMore, setHasMore] = useState(true);
   const [benefitsList, setBenefitsList] = useState([]);
@@ -62,8 +62,8 @@ const Home = () => {
                   <View className={`text_cut_1 ${styles['title']}`}>{item.groupName}</View>
                </View>
                <View className={`${styles['list_center_bottom']}`}>
-                  <View className={`iconfont icona-icon48huiyuanzhuanshu ${styles['iconfont2']}`}></View>
-                  <View className={` text_cut_1 ${styles['num']}`}>{item.remark}</View>
+                  <View className={`iconfont icona-icon48shijian ${styles['iconfont2']}`}></View>
+                  <View className={` text_cut_1 ${styles['num']}`}>创建时间：{dayjs(item.createTime).format('YYYY-MM-DD')}</View>
                </View>
             </View>
             <View className={`${styles['list_right']}`} onClick={() => {
