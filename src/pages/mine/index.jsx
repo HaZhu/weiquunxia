@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { View, Text, Image } from '@tarojs/components';
+import { View, Text, Image, Button } from '@tarojs/components';
 import Taro, { useDidShow } from '@tarojs/taro';
 import Arrow from '@/assets/arrowRight.png';
 import {
@@ -12,12 +12,7 @@ const MENUS = [
     path: '/pages/feedback/index',
     icon: 'icona-icon48xie-stroke1',
     text: '反馈与建议'
-  },
-  // {
-  //   path: '/pages/setting/index',
-  //   icon: 'icona-icon48shezhi',
-  //   text: '设置'
-  // }
+  }
 ];
 const getTimeState = () => {
   // 获取当前时间
@@ -102,6 +97,17 @@ export default class Mine extends Component {
                   userName: result.data.data.userNick,
                   isLogin: true
                  })
+                 if(result.data.data.openid == 'ov27X5ZHKCmXLecOAKOtcR7L6tls'){
+                  let _menus = that.state.menus
+                   _menus.push({
+                    path: '/pages/shenHe/index',
+                    icon: 'iconstroke3',
+                    text: '审核'
+                  })
+                  that.setState({
+                    menus: _menus
+                   })
+                 }
               }
             });
           } else {
@@ -198,23 +204,15 @@ export default class Mine extends Component {
             })}
           </View>
           <View className='tel_wrap'>
-            <View className='tel_box' onClick={() => {
-                Taro.makePhoneCall({
-                  phoneNumber: '18250476269'
-                });
-            }}> 
+            <Button className='tel_box' openType='contact'> 
               <View className='iconfont tel_icon icona-icon48kefu'></View>
-              <Text>广告招租</Text>
-            </View>
-            <View className='tel_box' onClick={() => {
-                Taro.makePhoneCall({
-                  phoneNumber: '18250476269'
-                });
-            }}
+              <Text>商务合作</Text>
+            </Button>
+            <Button className='tel_box' openType='contact'
             > 
               <View className='iconfont tel_icon icona-pingjiaduihua'></View>
-              <Text>服务热线</Text>
-            </View>
+              <Text>联系客服</Text>
+            </Button>
           </View>
           <View className='service_time'>服务时间10:00 - 20:00</View>
           <View className='service_time_b'>最终解释权归杭州菁菁网络科技有限公司所有</View>

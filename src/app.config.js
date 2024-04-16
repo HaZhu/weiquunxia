@@ -13,6 +13,7 @@ export default {
     'pages/codePage/index', //二维码中转页面
     'pages/createGroup/index', //二维码中转页面
     'pages/editGroup/index', //二维码中转页面
+    'pages/shenHe/index', //二维码中转页面
   ],
   subpackages: [
     {

@@ -13,6 +13,13 @@ export const editCreate = (data) =>
     method: 'POST',
     data
   });
+// 删除群
+export const groupDelete = (data) =>
+  request({
+    url: `/group/remove`,
+    method: 'POST',
+    data
+  });
 // 分页查询群信息
 export const groupListByPage = (data) =>
   request({
@@ -52,6 +59,24 @@ export const tagList = (data) =>
 export const suggestAdd = (data) =>
   request({
     url: `/suggest/add`,
+    method: 'POST',
+    data
+});
+
+
+// 新增反馈建议
+export const check = (data) =>
+  request({
+    url: `/group/process/check`,
+    method: 'POST',
+    data
+});
+
+
+// 新增反馈建议
+export const listByPage = (data) =>
+  request({
+    url: `/group/process/listByPage`,
     method: 'POST',
     data
 });

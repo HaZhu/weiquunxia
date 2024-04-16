@@ -20,6 +20,10 @@ const CreatGroup = () => {
     {
       label: '微信',
       value: 1
+    },
+    {
+      label: '个人',
+      value: 3
     }
   ];
   const [formData, setFormData] = useState(() => {
@@ -28,7 +32,7 @@ const CreatGroup = () => {
       headImagePic: '',
       tagId: '',
       tagName: '',
-      groupType: 2, // 1微信 2企业
+      groupType: 2, // 1微信 2企业 3个人
       groupName: '', //名称
       remark: '', //人数
     };
@@ -68,7 +72,7 @@ const CreatGroup = () => {
         Taro.showLoading({
           title: '上传中...'
         });
-        if(fileType == 1){
+        if(fileType == 1 && formData.groupType == 3){
           const r = await handleUploadFile(res.tempFilePaths[0], '/file/qr_code/upload');
           if( !r || (r.qrCodeOrigin != 1 && r.qrCodeOrigin != 2)){
             Taro.hideLoading();
@@ -103,7 +107,7 @@ const CreatGroup = () => {
         headImagePic: '',
         tagId: '',
         tagName: '',
-        groupType: 2, // 1微信 2企业
+        groupType: 2, // 1微信 2企业 3个人
         groupName: '', //名称
         remark: '', //人数
       })

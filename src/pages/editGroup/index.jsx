@@ -6,7 +6,8 @@ import {  showToast, handleUploadFile} from '@/utils';
 import {
   editCreate,
   groupDetail,
-  tagList
+  tagList,
+  groupDelete,
 } from '@/api/group'
 
 import BackIcon from '@/components/BackIcon';
@@ -23,6 +24,10 @@ const EditGroup = () => {
     {
       label: '微信',
       value: 1
+    },
+    {
+      label: '个人',
+      value: 3
     }
   ];
   const [formData, setFormData] = useState(() => {
@@ -31,7 +36,7 @@ const EditGroup = () => {
       headImagePic: '',
       tagId: '',
       tagName: '',
-      groupType: 2, // 1微信 2企业
+      groupType: 2, // 1微信 2企业 3个人
       groupName: '', //名称
       remark: '', //人数
     };
@@ -77,7 +82,7 @@ const EditGroup = () => {
     getTagList()
     handleGetDetail();
   },[])
-  const handleAddImg = (type) => {
+  const handleAddImg = (type,fileType = 1) => {
     Taro.chooseImage({
       // count: 1 - imgArr.length, // 默认9
       count: 1, // 默认9
@@ -89,16 +94,24 @@ const EditGroup = () => {
         Taro.showLoading({
           title: '上传中...'
         });
-        const r = await handleUploadFile(res.tempFilePaths[0]);
-        if( !r || (r.qrCodeOrigin != 1 && r.qrCodeOrigin != 2)){
+        if(fileType == 1 && formData.groupType == 3){
+          const r = await handleUploadFile(res.tempFilePaths[0], '/file/qr_code/upload');
+          if( !r || (r.qrCodeOrigin != 1 && r.qrCodeOrigin != 2)){
+            Taro.hideLoading();
+            showToast('请上传微信群二维码或者企业群二维码')
+            return
+          }
+          let _formData = {...formData};
+          _formData[type] = r.qrCodeUrl;
+          setFormData(_formData)
           Taro.hideLoading();
-          showToast('请上传微信群二维码或者企业群二维码')
-          return
+        }else{
+          const r = await handleUploadFile(res.tempFilePaths[0]);
+          let _formData = {...formData};
+          _formData[type] = r;
+          setFormData(_formData)
+          Taro.hideLoading();
         }
-        let _formData = {...formData};
-        _formData[type] = r.qrCodeUrl;
-        setFormData(_formData)
-        Taro.hideLoading();
       }
     });
   };
@@ -114,6 +127,31 @@ const EditGroup = () => {
       showToast('修改成功')
     }
   };
+  const handleDelete = async () => { 
+    Taro.showModal({
+      title: '提示',
+      content: '确定要删除该群?',
+      success: function (res) {
+        if (res.confirm) {
+          groupDelete({
+            id: params.id
+          }).then(res => {
+            if(res == 0){
+              showToast('删除成功')
+              setTimeout(() => {
+                  Taro.navigateBack({
+                    delta: 1
+                  })
+              }, 1000);
+            }
+          })
+          
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  } 
   return (
     <View className='fb_open_invoice_container' style={{ paddingTop: titleBarHeight + barHeight + 'px' }}>
       <BackIcon></BackIcon>
@@ -222,13 +260,13 @@ const EditGroup = () => {
             <View className='text_box_2'>上传微信群封面</View>
           </View>
         {!formData.headImagePic ? (
-          <View className='add_img' onClick={() => {handleAddImg('headImagePic')}}>
+          <View className='add_img' onClick={() => {handleAddImg('headImagePic',2)}}>
             <View className='iconfont iconstroke2'></View>
           </View>
         ) : <Image
           mode='aspectFit'
           onClick={() => {
-            handleAddImg('headImagePic')
+            handleAddImg('headImagePic',2)
          }}
           src={formData.headImagePic}
         ></Image>}
@@ -236,6 +274,9 @@ const EditGroup = () => {
           <View className='btn_wrap'>
             <View className={`btn_item widthFix ${!handleCheck() && 'gray'}`} onClick={handleSubmit}>
                 修改
+            </View>
+            <View className={`btn_item widthFix`} style="margin-left: 15px" onClick={handleDelete}>
+                删除
             </View>
           </View>
       </View>
