@@ -124,7 +124,7 @@ const EditGroup = () => {
     query.id = params.id
     const res = await editCreate(query)
     if (res.code === 0) {
-      showToast('修改成功')
+      showToast('修改成功，等待审核')
     }
   };
   const handleDelete = async () => { 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Taro, { useShareTimeline,useReachBottom, useShareAppMessage, useDidShow } from '@tarojs/taro';
-
+import { getPng } from '@/utils/index'
 import { View, Image} from '@tarojs/components';
 import { AtTag } from 'taro-ui'
 import {
@@ -69,7 +69,12 @@ const ShenHeList = () => {
           benefitsList.map(item => {
             return  <View className={`${styles['list']}`}>
             <View className={`${styles['list_left']}`}>
-              <Image className={`${styles['list_left_img']}`} src={LogoPng}></Image>
+              <Image className={`${styles['list_left_img']}`} onClick={() => {
+                   Taro.previewImage({
+                    current: getPng(item.qrCodeUrl), // 当前显示图片的http链接
+                    urls: [getPng(item.qrCodeUrl)] // 需要预览的图片http链接列表
+                  })
+              }} src={getPng(item.qrCodeUrl)}></Image>
             </View>
             <View className={`${styles['list_center']}`}>
                <View className={`${styles['list_center_top']}`}>
@@ -86,7 +91,27 @@ const ShenHeList = () => {
                 url: `/pages/membershipCode/index?id=${item.id}`
               })
             }}>
-              <AtTag type='primary' active circle>审核</AtTag>
+              <AtTag type='primary' active circle onClick={() => {
+                Taro.showModal({
+                  title: '提示',
+                  content: '是否通过审核',
+                  success: function (res) {
+                    if (res.confirm) {
+                      check({
+                        id: item.id,
+                        status: 2,
+                        invalidReason: ''
+                      })
+                    } else if (res.cancel) {
+                      check({
+                        id: item.id,
+                        status: 0,
+                        invalidReason: '图片不符'
+                      })
+                    }
+                  }
+                })
+              }}>审核</AtTag>
             </View>
           </View>
           })

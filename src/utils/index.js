@@ -2,7 +2,7 @@ import Taro from '@tarojs/taro';
 import md5 from 'md5';
 import {  requestRecord } from '@/api';
 import {getGlobalData} from '@/utils/global_data'
-
+import {encrypt, decryptFn} from '@/utils/crypto.js'
 export function isValidMobile(phone) {
   return /^1[0-9]{10}$/.test(phone);
 }
@@ -364,3 +364,7 @@ export const handleUploadFile = (file, api = '/file/upload' ) => {
     });
   });
 };
+
+export const getPng = (value) => {
+   return decryptFn(value)
+}

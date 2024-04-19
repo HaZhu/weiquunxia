@@ -101,7 +101,7 @@ const CreatGroup = () => {
     let query = { ...formData };
     const res = await groupCreate(query)
     if (res.code === 0) {
-      showToast('创建成功')
+      showToast('创建成功,等待审核')
       setFormData({
         qrCodeUrl: '',
         headImagePic: '',

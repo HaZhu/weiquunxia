@@ -15,12 +15,12 @@ export default {
     'pages/editGroup/index', //二维码中转页面
     'pages/shenHe/index', //二维码中转页面
   ],
-  subpackages: [
-    {
-      root: 'pages/setting',
-      pages: ['index', 'accountSave/index', 'userInfo/index', 'about/index']
-    }
-  ],
+  // subpackages: [
+  //   {
+  //     root: 'pages/setting',
+  //     pages: ['index', 'accountSave/index', 'userInfo/index', 'about/index']
+  //   }
+  // ],
   window: {
     backgroundTextStyle: 'dark',
     navigationBarBackgroundColor: '#fff',

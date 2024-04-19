@@ -34,11 +34,12 @@ const MembershipCode = () => {
             <View className='user_name'>群名称：{groupInfo.groupName}</View>
             <View className='user_info'>
               <Text>创建者：{groupInfo.publishUserNick}</Text>
+              <Text>群ID：{groupInfo.id}</Text>
             </View>
           </View>
-          <View className='lxb_num'>群ID：{groupInfo.id}</View>
-          <View className='lxb_money'>微群公告：{groupInfo.remark}</View>
-          <View className='lxb_money'>创建时间：{dayjs(groupInfo.creatTime).format('YYYY-MM-DD')}</View>
+          {/* <View className='lxb_num'>群ID：{groupInfo.id}</View> */}
+          <View className='lxb_money'>微群公告：{groupInfo.remark || '无'}</View>
+          {/* <View className='lxb_money'>创建时间：{dayjs(groupInfo.creatTime).format('YYYY-MM-DD')}</View> */}
           {groupInfo.qrCodeUrl ? (
             <View className='webp_wrap'>
                   <Image onClick={() => {
@@ -61,16 +62,6 @@ const MembershipCode = () => {
           <View className='user_register_time'></View>
         </View>
       </View>
-      {/* <View className='fixed_wrap'>
-         <View className='icon_wrap'> 
-            <View className='iconfont iconcuowu-stroke'></View>
-            <View className='pb'>屏蔽</View>
-         </View>
-         <View className='icon_wrap'> 
-            <View className='iconfont icona-icon48xiaoxi'></View>
-            <View className='pb'>投诉</View>
-         </View>
-      </View> */}
       <View className='service_time_b'>入群谨防欺诈，所涉风险与本小程序无关，请自行判断并确保安全。</View>
     </View>
   );

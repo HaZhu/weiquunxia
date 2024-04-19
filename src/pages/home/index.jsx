@@ -11,6 +11,7 @@ import B1Png from '@/assets/1.jpeg'
 import B2Png from '@/assets/2.jpeg'
 import LogoPng from '@/assets/3.jpeg'
 import styles from './home.module.less';
+import { getPng } from '@/utils/index'
 let baseUrl = 'https://www.music999.cn';
 
 const MyGroupList = () => {
@@ -176,7 +177,12 @@ const MyGroupList = () => {
           benefitsList.map(item => {
             return  <View className={`${styles['list']}`}>
             <View className={`${styles['list_left']}`}>
-              <Image className={`${styles['list_left_img']}`} src={LogoPng}></Image>
+              <Image className={`${styles['list_left_img']}`} onClick={() => {
+                   Taro.previewImage({
+                    current: getPng(item.qrCodeUrl), // 当前显示图片的http链接
+                    urls: [getPng(item.qrCodeUrl)] // 需要预览的图片http链接列表
+                  })
+              }} src={getPng(item.qrCodeUrl)}></Image>
             </View>
             <View className={`${styles['list_center']}`}>
                <View className={`${styles['list_center_top']}`}>
@@ -184,8 +190,9 @@ const MyGroupList = () => {
                   <View className={`text_cut_1 ${styles['title']}`}>{item.groupName}</View>
                </View>
                <View className={`${styles['list_center_bottom']}`}>
-                  <View className={`iconfont icona-icon48huiyuanzhuanshu ${styles['iconfont2']}`}></View>
-                  <View className={` text_cut_1 ${styles['num']}`}>创建者：{item.publishUserNick || '神秘人'}</View>
+                  {/* <View className={`iconfont icona-icon48huiyuanzhuanshu ${styles['iconfont2']}`}></View> */}
+                  {/* <View className={` text_cut_1 ${styles['num']}`}>创建者：{item.publishUserNick || '神秘人'}</View> */}
+                  <View className={` text_cut_1 ${styles['num']}`}>点击二维码，长按加群（入群谨防欺诈）</View>
                </View>
             </View>
             <View className={`${styles['list_right']}`} onClick={() => {
@@ -193,7 +200,7 @@ const MyGroupList = () => {
                 url: `/pages/membershipCode/index?id=${item.id}`
               })
             }}>
-              <AtTag type='primary' active circle>加群</AtTag>
+              <AtTag type='primary' active circle>详情</AtTag>
             </View>
           </View>
           })

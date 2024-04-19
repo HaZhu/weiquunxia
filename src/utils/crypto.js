@@ -1,6 +1,6 @@
 import CryptoJS from 'crypto-js';
 
-const keyStr = '1grLx91U40VawzhRAm7ES';
+const keyStr = 'let_us_get_free.';
 //随机生成指定数量的32进制key
 //加密
 const encrypt = (word) => {

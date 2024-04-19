@@ -98,14 +98,13 @@ export default class Mine extends Component {
                   isLogin: true
                  })
                  if(result.data.data.openid == 'ov27X5ZHKCmXLecOAKOtcR7L6tls'){
-                  let _menus = that.state.menus
-                   _menus.push({
+                  MENUS.push({
                     path: '/pages/shenHe/index',
                     icon: 'iconstroke3',
                     text: '审核'
                   })
                   that.setState({
-                    menus: _menus
+                    menus: MENUS
                    })
                  }
               }
