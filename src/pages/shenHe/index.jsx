@@ -86,11 +86,7 @@ const ShenHeList = () => {
                   <View className={` text_cut_1 ${styles['num']}`}>创建者：{item.publishUserNick || '神秘人'}</View>
                </View>
             </View>
-            <View className={`${styles['list_right']}`} onClick={() => {
-              Taro.navigateTo({
-                url: `/pages/membershipCode/index?id=${item.id}`
-              })
-            }}>
+            <View className={`${styles['list_right']}`}>
               <AtTag type='primary' active circle onClick={() => {
                 Taro.showModal({
                   title: '提示',
