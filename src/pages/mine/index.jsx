@@ -8,10 +8,16 @@ import {
 import './index.less';
 
 const MENUS = [
+  
+   {
+    path: '/pages/myGroupList/index',
+    icon: 'iconwenzhang',
+    text: '我的微群'
+  },
   {
     path: '/pages/feedback/index',
     icon: 'icona-icon48xie-stroke1',
-    text: '反馈与建议'
+    text: '反馈建议'
   }
 ];
 const getTimeState = () => {
@@ -97,14 +103,15 @@ export default class Mine extends Component {
                   userName: result.data.data.userNick,
                   isLogin: true
                  })
-                 if(result.data.data.openid == 'ov27X5ZHKCmXLecOAKOtcR7L6tls'){
-                  MENUS.push({
+                 if(result.data.data.openid == 'ov27X5ZHKCmXLecOAKOtcR7L6tls' || result.data.data.openid == 'ov27X5dzQcW_ATmVhh0BXlQKEdUo'){
+                  let _menus = [...MENUS]
+                  _menus.push({
                     path: '/pages/shenHe/index',
                     icon: 'iconstroke3',
                     text: '审核'
                   })
                   that.setState({
-                    menus: MENUS
+                    menus: _menus
                    })
                  }
               }
@@ -161,7 +168,7 @@ export default class Mine extends Component {
               }
             </View>
           </View>
-          <View className='lix_coupon_wrap'>
+          {/* <View className='lix_coupon_wrap'>
             <View
               className='lix_coupon_box'
             >
@@ -182,11 +189,10 @@ export default class Mine extends Component {
               <View className='lix_coupon_box_top'>
                 <Text>我的微群</Text>
                 <View className='iconfont icon  iconwenzhang'></View>
-                {/* <Image className="icon" src={ScoreIcon}></Image> */}
               </View>
               <View className='num'>{groupNum || 0}</View>
             </View>
-          </View>
+          </View> */}
           <View className='menus'>
             {menus.map((item) => {
               return item.id === 'ticket' && !isAuth ? null : (
